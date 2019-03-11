@@ -1,0 +1,18 @@
+{
+  "name": "HMMH/be-auto-login",
+  "type": "typo3-cms-extension",
+  "description": "Auto BE login for TYPO3",
+  "homepage": "https://hmmh.de",
+  "license": [
+    "GPL-2.0+"
+  ],
+  "require": {
+    "typo3/cms-core": "^8.7.0 || ^9.0",
+    "helhum/dotenv-connector": "^2.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "HMMH\\BeAutoLogin\\": "Classes/"
+    }
+  }
+}
