@@ -2,8 +2,6 @@
 
 namespace HMMH\BeAutoLogin\Service;
 
-use TYPO3\CMS\Core\Utility\GeneralUtility;
-
 class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
 {
     public function getUser()
