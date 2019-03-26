@@ -1,14 +1,18 @@
 {
   "name": "hmmh/be-auto-login",
+  "license": "GPL-3.0",
   "type": "typo3-cms-extension",
   "description": "Auto BE login for TYPO3",
   "homepage": "https://hmmh.de",
-  "license": [
-    "GPL-2.0+"
-  ],
   "require": {
     "typo3/cms-core": "^8.7.0 || ^9.0",
     "helhum/dotenv-connector": "^2.0"
+  },
+  "extra": {
+    "typo3/cms": {
+      "cms-package-dir": "{$vendor-dir}/typo3/cms",
+      "web-dir": ".Build"
+    }
   },
   "autoload": {
     "psr-4": {
