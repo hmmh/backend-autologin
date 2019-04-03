@@ -3,6 +3,7 @@
 namespace HMMH\BeAutoLogin\Service;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extensionmanager\Utility\ConfigurationUtility;
 
 /**
  * Class AuthenticationService
@@ -17,7 +18,18 @@ class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
      */
     public function getUser()
     {
-        if (GeneralUtility::getApplicationContext()->isDevelopment() && ('cli' !== PHP_SAPI)) {
+        $remoteAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
+
+        $extension = new ConfigurationUtility;
+        $extension->getCurrentConfiguration('be_autologin');
+        $whitelistAddresses = GeneralUtility::trimExplode(',', $extension['whilelistIpAdresses'], true);
+
+        if (
+            GeneralUtility::getApplicationContext()->isDevelopment()
+            && ('cli' !== PHP_SAPI)
+            && (0 < count($whitelistAddresses)
+            && in_array($remoteAddress, $whitelistAddresses))
+        ) {
             $autoLoginUserName = trim(
                 GeneralUtility::_GET(static::COOKIE_NAME) ?? $_COOKIE[static::COOKIE_NAME] ?? getenv(static::COOKIE_NAME)
             );
