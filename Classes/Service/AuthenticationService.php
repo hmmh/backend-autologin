@@ -16,19 +16,32 @@ class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
     /**
      * @return bool
      */
-    public function getUser()
+    protected function hasAllowedRemoteAddresses()
     {
-        $remoteAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
-
         $extension = new ConfigurationUtility;
         $extension->getCurrentConfiguration('be_autologin');
-        $whitelistAddresses = GeneralUtility::trimExplode(',', $extension['whilelistIpAdresses'], true);
 
+        $whitelistIpAddresses = GeneralUtility::trimExplode(',', $extension['whitelistIpAddresses'], true);
+        $remoteAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
+
+        foreach ($whitelistIpAddresses as $whitelistIpAddress) {
+            if (GeneralUtility::cmpIP($remoteAddress, $whitelistIpAddress)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function getUser()
+    {
         if (
-            GeneralUtility::getApplicationContext()->isDevelopment()
-            && ('cli' !== PHP_SAPI)
-            && (0 < count($whitelistAddresses)
-            && in_array($remoteAddress, $whitelistAddresses))
+            ('cli' !== PHP_SAPI)
+            && GeneralUtility::getApplicationContext()->isDevelopment()
+            && $this->hasAllowedRemoteAddresses()
         ) {
             $autoLoginUserName = trim(
                 GeneralUtility::_GET(static::COOKIE_NAME) ?? $_COOKIE[static::COOKIE_NAME] ?? getenv(static::COOKIE_NAME)

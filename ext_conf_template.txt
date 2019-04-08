@@ -1,2 +1,2 @@
 # cat=General//1; type=string; label=White list with ip addresses
-whilelistIpAdresses = 
+whitelistIpAddresses = *
