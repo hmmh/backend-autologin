@@ -16,7 +16,7 @@ class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
     /**
      * @return bool
      */
-    protected function hasAllowedRemoteAddresses()
+    protected function hasAllowedRemoteAddress()
     {
         $extension = new ConfigurationUtility;
         $extension->getCurrentConfiguration('be_autologin');
@@ -41,7 +41,7 @@ class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
         if (
             ('cli' !== PHP_SAPI)
             && GeneralUtility::getApplicationContext()->isDevelopment()
-            && $this->hasAllowedRemoteAddresses()
+            && $this->hasAllowedRemoteAddress()
         ) {
             $autoLoginUserName = trim(
                 GeneralUtility::_GET(static::COOKIE_NAME) ?? $_COOKIE[static::COOKIE_NAME] ?? getenv(static::COOKIE_NAME)
