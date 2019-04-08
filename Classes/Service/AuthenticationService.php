@@ -3,6 +3,7 @@
 namespace HMMH\BeAutoLogin\Service;
 
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Object\ObjectManager;
 use TYPO3\CMS\Extensionmanager\Utility\ConfigurationUtility;
 
 /**
@@ -18,10 +19,12 @@ class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
      */
     protected function hasAllowedRemoteAddress()
     {
-        $extension = new ConfigurationUtility;
-        $extension->getCurrentConfiguration('be_autologin');
+        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
 
-        $whitelistIpAddresses = GeneralUtility::trimExplode(',', $extension['whitelistIpAddresses'], true);
+        $configurationUtility = $objectManager->get(ConfigurationUtility::class);
+        $extension = $configurationUtility->getCurrentConfiguration('be_autologin');
+        $whitelistIpAddresses = GeneralUtility::trimExplode(',', $extension['whitelistIpAddresses']['value'], true);
+
         $remoteAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 
         foreach ($whitelistIpAddresses as $whitelistIpAddress) {
