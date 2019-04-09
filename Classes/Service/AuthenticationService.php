@@ -2,15 +2,14 @@
 
 namespace HMMH\BeAutoLogin\Service;
 
+use TYPO3\CMS\Core\Authentication\AbstractAuthenticationService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
-use TYPO3\CMS\Extensionmanager\Utility\ConfigurationUtility;
 
 /**
  * Class AuthenticationService
  *
  */
-abstract class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
+abstract class AuthenticationService extends AbstractAuthenticationService
 {
     const COOKIE_NAME = 'TYPO3_AUTOLOGIN_USER';
 
@@ -21,11 +20,12 @@ abstract class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
      */
     protected function hasAllowedRemoteAddress()
     {
-        $objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-
-        $configurationUtility = $objectManager->get(ConfigurationUtility::class);
-        $extension = $configurationUtility->getCurrentConfiguration('be_autologin');
-        $whitelistIpAddresses = GeneralUtility::trimExplode(',', $extension['whitelistIpAddresses']['value'], true);
+        $extension = $this->getExtensionConfiguration();
+        $whitelistIpAddresses = GeneralUtility::trimExplode(
+            ',',
+            $extension['whitelistIpAddresses']['value'] ?? $extension['whitelistIpAddresses'],
+            true
+        );
 
         $remoteAddress = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 
@@ -37,6 +37,11 @@ abstract class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
 
         return false;
     }
+
+    /**
+     * @return array
+     */
+    abstract function getExtensionConfiguration(): array;
 
     /**
      * @return bool
