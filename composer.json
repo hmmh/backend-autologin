@@ -8,6 +8,9 @@
     "typo3/cms-core": "^8.7.0",
     "helhum/dotenv-connector": "^2.0"
   },
+  "require-dev": {
+    "typo3-console/php-server-command": "^0.2.0"
+  },
   "extra": {
     "typo3/cms": {
       "cms-package-dir": "{$vendor-dir}/typo3/cms",

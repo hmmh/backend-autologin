@@ -14,6 +14,8 @@ class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
 {
     const COOKIE_NAME = 'TYPO3_AUTOLOGIN_USER';
 
+    const YEAR_SECONDS = 60 /* seconds */ * 60 /* minutes */ * 24 /* hours */ * 30 /* days */ * 12 /* months */;
+
     /**
      * @return bool
      */
@@ -51,7 +53,7 @@ class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
             );
 
             if ((empty($_COOKIE[static::COOKIE_NAME])) || ($_COOKIE[static::COOKIE_NAME] !== $autoLoginUserName)) {
-                setcookie(static::COOKIE_NAME, $autoLoginUserName);
+                setcookie(static::COOKIE_NAME, $autoLoginUserName, time() + static::YEAR_SECONDS);
             }
 
             return $this->fetchUserRecord($autoLoginUserName);
