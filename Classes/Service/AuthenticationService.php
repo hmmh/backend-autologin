@@ -10,7 +10,7 @@ use TYPO3\CMS\Extensionmanager\Utility\ConfigurationUtility;
  * Class AuthenticationService
  *
  */
-class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
+abstract class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
 {
     const COOKIE_NAME = 'TYPO3_AUTOLOGIN_USER';
 
@@ -60,15 +60,5 @@ class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
         } else {
             return false;
         }
-    }
-
-    /**
-     * @param array $user
-     *
-     * @return int
-     */
-    public function authUser(array $user)
-    {
-        return 200;
     }
 }
