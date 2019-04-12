@@ -2,14 +2,13 @@
 
 namespace HMMH\BeAutoLogin\Service;
 
-use TYPO3\CMS\Core\Authentication\AbstractAuthenticationService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 
 /**
  * Class AuthenticationService
  *
  */
-abstract class AuthenticationService extends AbstractAuthenticationService
+abstract class AuthenticationService
 {
     const COOKIE_NAME = 'TYPO3_AUTOLOGIN_USER';
 
