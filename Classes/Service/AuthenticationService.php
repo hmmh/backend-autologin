@@ -8,7 +8,7 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
  * Class AuthenticationService
  *
  */
-abstract class AuthenticationService
+abstract class AuthenticationService extends \TYPO3\CMS\Sv\AuthenticationService
 {
     const COOKIE_NAME = 'TYPO3_AUTOLOGIN_USER';
 
