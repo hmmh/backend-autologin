@@ -1,11 +1,12 @@
 # TYPO3 Backend Auto Login
 
-This extension will allow you to enter the TYPO3 backend without manual login. This may be quite usefull
-during development. 
+This extension will allow you to login to the TYPO3 backend without providing username and password manually. This may
+be quite usefull during development. 
  
 ## Installation
 
-Installation can be done via extension manager or by using composer:
+Installation can be done via extension manager or by using composer. As auto login will only work in development mode
+use `--dev` option for composer installation.
 
     composer require hmmh/be-auto-login --dev
 
@@ -13,32 +14,25 @@ Installation can be done via extension manager or by using composer:
 
 ### Access restrictions
 
-For security reasons auto login will only be possible if your system is running in dev context, see
-https://docs.typo3.org/typo3cms/CoreApiReference/latest/ApiOverview/Bootstrapping/Index.html#application-context
+For security reasons auto login will only be possible if your TYPO3 system is running in development application context,
+see [TYPO3 API reference](https://docs.typo3.org/typo3cms/CoreApiReference/latest/ApiOverview/Bootstrapping/Index.html#application-context)
 for a general explanation.
 
 Additionally you can restrict auto login to a certain range of IP addreses by modifying the the setting
 `White list with ip addresses` in the extension configuration. IP ranges can be specified by a comma separated
 list of ip addresses and ranges.
-
-Examples:
-
-    // Only one ip address
-    192.168.0.123
-
-    // Two ip addresses
-    192.168.0.123, 192.168.0.227
-
-    // A range of addresses from 192.168.0.0 to 192.168.0.255
-    192.168.0.*
-    
-    // Mixture of single addresses and ranges
-    192.168.0.*, 192.168.1.22, 192.168.1.23
-    
-  
+   
+| value | description | 
+|---|---|
+| *                                       | Any IP address. This is the default value  |
+| 192.168.0.123                           | Only one specific ip address |
+| 192.168.0.123, 192.168.0.227            | Two specific ip addresses |
+| 192.168.0.*                             | A range of addresses from 192.168.0.0 to 192.168.0.255 |
+| 192.168.0.*, 192.168.1.22, 192.168.1.23 | Mixture of single addresses and ranges |
 ### How to auto login?
 
-There are several options available to define which user should be used for auto login.
+In order to use auto login you need to have the username of a valid TYPO3 backend user account. this username can
+be used to login using one of the following methods. 
 
 #### By .env file
 
