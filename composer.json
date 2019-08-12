@@ -1,9 +1,17 @@
 {
   "name": "hmmh/be-auto-login",
-  "type": "typo3-cms-extension",
   "description": "Auto BE login for TYPO3",
-  "homepage": "https://hmmh.de",
-  "license": "GPL-2.0+",
+  "keywords": ["typo3", "backend", "login", "developer", "auto"],
+  "type": "typo3-cms-extension",
+  "license": "GPL-3.0-or-later",
+  "authors": [
+    {
+      "name": "Marc Wöhlken",
+      "email": "marc.woehlken@hmmh.de",
+      "homepage": "https://hmmh.de/",
+      "role": "Developer"
+    }
+  ],
   "require": {
     "typo3/cms-core": "^8.7.0 || ^9.5.0",
     "helhum/dotenv-connector": "^2.0"
